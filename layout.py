@@ -47,7 +47,7 @@ def getDuration(then, now=datetime.now(), interval="default"):
 
         return "{} years, {} days, {} hours, {} minutes and {} seconds".format(int(y[0]), int(d[0]), int(h[0]),
                                                                                int(m[0]), int(s[0]))
-    # this returns a dictionary, we choose the key to return value
+    # this returns a dictionary, we choose the key to return valuejjjjj
     return {
         'years': int(years()[0]),
         'days': int(days()[0]),
