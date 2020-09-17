@@ -5,12 +5,38 @@ from kivy.clock import Clock
 from kivy.uix.floatlayout import FloatLayout
 from pydub import AudioSegment
 from pydub.playback import play
+import csv
+
 
 # We will start counting from this number
-the_number = 1
+def read_saved_number(csvfilename):
+    file_data = []
+    with open(csvfilename, "r") as number_list:
+        reader = csv.reader(number_list, delimiter=',', quotechar='"')
+        for row in reader:
+            if row:  # avoid blank lines
+                columns = [row[0], row[1]]
+                file_data.append(columns)
+    return file_data
+
+
+def save_current_number(csv_file_name, number, time):
+    with open(csv_file_name, mode='a') as number_file:
+        number_writer = csv.writer(number_file, delimiter=',', quotechar='"')
+        number_writer.writerow([number, time])
+    return
+
+
+print(f'Starting up ......')
+
+data = read_saved_number('saved_count.csv')  # read the last saved number
+last_row = data[-1]  # grab last row of csv file
+print(f'current number is {last_row[0]} and time was {last_row[1]}')
+the_number = int(last_row[0])
 
 # Set this to the starting date for counting
 start_date = datetime(2020, 6, 1)
+
 
 # Function to calculate the time delta between two dates
 # Sure seems like there could be a easier way to do this
@@ -47,6 +73,7 @@ def getDuration(then, now=datetime.now(), interval="default"):
 
         return "{} years, {} days, {} hours, {} minutes and {} seconds".format(int(y[0]), int(d[0]), int(h[0]),
                                                                                int(m[0]), int(s[0]))
+
     # this returns a dictionary, we choose the key to return valuejjjjj
     return {
         'years': int(years()[0]),
@@ -159,7 +186,7 @@ def add_placeholders(x):
 
 
 def read_numbers(num):
-    ### build up a string of numbers to speak
+    # build up a string of numbers to speak
     speak = 0
     for i in num:
         speak += AudioSegment.from_file(audioElements[str(i)], format='wav')
@@ -178,10 +205,11 @@ class MyW(FloatLayout):
         self.ids.label1.text = str(format(the_number, ","))
         # Update the total elapsed time, how to split this to not show zero values?
         self.ids.label3.text = str(getDuration(start_date, interval="seconds"))
+        save_current_number('saved_count.csv', the_number, datetime.now())
 
     def on_touch_down(self, touch):
-        self.ids.label1.text = str(format(the_number, ","))         # set the counting number
-        Clock.schedule_interval(self.my_callback, 0.5)              # Document this better 1 is too long
+        self.ids.label1.text = str(format(the_number, ","))  # set the counting number
+        Clock.schedule_interval(self.my_callback, 0.5)  # Document this better 1 is too long
         if touch.is_double_tap:
             self.ids.label1.text = ""
             Clock.unschedule(self.my_callback)
