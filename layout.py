@@ -29,13 +29,16 @@ def save_current_number(csv_file_name, number, time):
 
 print(f'Starting up ......')
 
-data = read_saved_number('saved_count.csv')  # read the last saved number
-last_row = data[-1]  # grab last row of csv file
+# read the last saved number
+data = read_saved_number('saved_count.csv')
+
+# grab last row of csv file
+last_row = data[-1]
 print(f'current number is {last_row[0]} and time was {last_row[1]}')
 the_number = int(last_row[0])
 
 # Set this to the starting date for counting
-start_date = datetime(2020, 6, 1)
+start_date = datetime(2020, 6, 4)
 
 
 # Function to calculate the time delta between two dates
