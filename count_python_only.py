@@ -30,6 +30,8 @@ def save_current_number(csv_file_name, number, time):
 print(f'Starting up ......')
 
 # read the last saved number
+global the_number
+
 data = read_saved_number('saved_count.csv')
 
 # grab last row of csv file
@@ -196,33 +198,38 @@ def read_numbers(num):
     play(speak)
 
 
-class MyW(FloatLayout):
-    global the_number
-
-    def my_callback(self, dt):
-        global the_number
-
-        print("read the number here")
-        read_numbers(add_placeholders(the_number))
-        the_number += 1
-        self.ids.label1.text = str(format(the_number, ","))
-        # Update the total elapsed time, how to split this to not show zero values?
-        self.ids.label3.text = str(getDuration(start_date, interval="seconds"))
-        save_current_number('saved_count.csv', the_number, datetime.now())
-
-    def on_touch_down(self, touch):
-        self.ids.label1.text = str(format(the_number, ","))  # set the counting number
-        Clock.schedule_interval(self.my_callback, 0.35)  # Document this better 1 is too long
-        if touch.is_double_tap:
-            self.ids.label1.text = ""
-            Clock.unschedule(self.my_callback)
-            exit()
-
-
-class Layout(App):
-    def build(self):
-        return MyW()
+# class MyW(FloatLayout):
+#     global the_number
+#
+#     def my_callback(self, dt):
+#         global the_number
+#
+#         print("read the number here")
+#         read_numbers(add_placeholders(the_number))
+#         the_number += 1
+#         self.ids.label1.text = str(format(the_number, ","))
+#         # Update the total elapsed time, how to split this to not show zero values?
+#         self.ids.label3.text = str(getDuration(start_date, interval="seconds"))
+#         save_current_number('saved_count.csv', the_number, datetime.now())
+#
+#     def on_touch_down(self, touch):
+#         self.ids.label1.text = str(format(the_number, ","))  # set the counting number
+#         Clock.schedule_interval(self.my_callback, 0.35)  # Document this better 1 is too long
+#         if touch.is_double_tap:
+#             self.ids.label1.text = ""
+#             Clock.unschedule(self.my_callback)
+#             exit()
+#
+#
+# class Layout(App):
+#     def build(self):
+#         return MyW()
 
 
 if __name__ == "__main__":
-    Layout().run()
+    # global the_number
+    while (True):
+        print(f'current number is {the_number} and time was {datetime.now()}')
+        read_numbers(add_placeholders(the_number))
+        the_number += 1
+        save_current_number('saved_count.csv', the_number, datetime.now())
