@@ -190,6 +190,7 @@ def add_placeholders(x):
     return no_zeros
 
 
+
 def read_numbers(num):
     # build up a string of numbers to speak
     speak = 0
