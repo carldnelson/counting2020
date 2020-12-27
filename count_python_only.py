@@ -232,4 +232,7 @@ if __name__ == "__main__":
         print(f'current number is {the_number} and time was {datetime.now()}')
         read_numbers(add_placeholders(the_number))
         the_number += 1
-        save_current_number('saved_count.csv', the_number, datetime.now())
+
+        # only save every 10 numbers to cvs
+        if the_number % 10 == 0:
+            save_current_number('saved_count.csv', the_number, datetime.now())
