@@ -108,7 +108,7 @@ audioElements = {
     '11': 'Cyrus/eleven.wav', '12': 'Cyrus/twelve.wav', '13': 'Cyrus/thirteen.wav', '14': 'Cyrus/fourteen.wav',
     '15': 'Cyrus/fifteen.wav',
     '16': 'Cyrus/sixteen.wav', '17': 'Cyrus/seventeen.wav', '18': 'Cyrus/eighteen.wav', '19': 'Cyrus/nineteen.wav',
-    '20': 'Cyrus/twenty.wav', '30': 'Cyrus/thirty.wav', '40': 'Cyrus/fourty.wav', '50': 'Cyrus/fifty.wav',
+    '20': 'Cyrus/twenty.wav', '30': 'Cyrus/thirty.wav', '40': 'Cyrus/forty.wav', '50': 'Cyrus/fifty.wav',
     '60': 'Cyrus/sixty.wav', '70': 'Cyrus/seventy.wav', '80': 'Cyrus/eighty.wav', '90': 'Cyrus/ninety.wav',
     '100': 'Cyrus/hundred.wav', '1000': 'Cyrus/thousand.wav', '1000000': 'Cyrus/million.wav',
     '1000000000': 'Cyrus/billion.wav', '1000000000000': 'Cyrus/trillion.wav'
