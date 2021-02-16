@@ -3,10 +3,10 @@
 block_cipher = None
 
 
-a = Analysis(['count_python_only.py'],
-             pathex=['/Users/carl/PycharmProjects/counting2020'],
+a = Analysis(['count_python_only.py', 'count_python_only.spec'],
+             pathex=['/Users/carl/PycharmProjects/counting2020_no_gui'],
              binaries=[],
-             datas=[('Cyrus/*.wav', 'Cyrus')],
+             datas=[('Cyrus/*.wav', 'Cyrus'),('saved_count.csv','.')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],

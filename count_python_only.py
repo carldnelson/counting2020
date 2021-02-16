@@ -1,12 +1,14 @@
 import datetime
 from datetime import datetime
-from kivy.app import App
-from kivy.clock import Clock
-from kivy.uix.floatlayout import FloatLayout
 from pydub import AudioSegment
 from pydub.playback import play
 import csv
+from os import path
+import sys
+bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
+path_to_data = path.abspath(path.join(bundle_dir, 'saved_count.csv'))
 
+print(path_to_data)
 
 # We will start counting from this number
 def read_saved_number(csvfilename):
@@ -32,7 +34,8 @@ print(f'Starting up ......')
 # read the last saved number
 global the_number
 
-data = read_saved_number('saved_count.csv')
+# data = read_saved_number('saved_count.csv')
+data = read_saved_number(path_to_data)
 
 # grab last row of csv file
 last_row = data[-1]
@@ -198,33 +201,6 @@ def read_numbers(num):
     play(speak)
 
 
-# class MyW(FloatLayout):
-#     global the_number
-#
-#     def my_callback(self, dt):
-#         global the_number
-#
-#         print("read the number here")
-#         read_numbers(add_placeholders(the_number))
-#         the_number += 1
-#         self.ids.label1.text = str(format(the_number, ","))
-#         # Update the total elapsed time, how to split this to not show zero values?
-#         self.ids.label3.text = str(getDuration(start_date, interval="seconds"))
-#         save_current_number('saved_count.csv', the_number, datetime.now())
-#
-#     def on_touch_down(self, touch):
-#         self.ids.label1.text = str(format(the_number, ","))  # set the counting number
-#         Clock.schedule_interval(self.my_callback, 0.35)  # Document this better 1 is too long
-#         if touch.is_double_tap:
-#             self.ids.label1.text = ""
-#             Clock.unschedule(self.my_callback)
-#             exit()
-#
-#
-# class Layout(App):
-#     def build(self):
-#         return MyW()
-
 
 if __name__ == "__main__":
     # global the_number
@@ -235,4 +211,4 @@ if __name__ == "__main__":
 
         # only save every 10 numbers to cvs
         if the_number % 10 == 0:
-            save_current_number('saved_count.csv', the_number, datetime.now())
+            save_current_number(path_to_data, the_number, datetime.now())
