@@ -107,6 +107,7 @@ def getDuration(then, now=datetime.now(), interval="default"):
 
 # Define the dictionary for audio files that will speak the numbers
 
+ # kkkk
 audioElements = {
     '1': 'Cyrus/one.wav', '2': 'Cyrus/two.wav', '3': 'Cyrus/three.wav', '4': 'Cyrus/four.wav', '5': 'Cyrus/five.wav',
     '6': 'Cyrus/six.wav', '7': 'Cyrus/seven.wav', '8': 'Cyrus/eight.wav', '9': 'Cyrus/nine.wav', '10': 'Cyrus/ten.wav',
