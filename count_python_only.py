@@ -5,10 +5,12 @@ from pydub.playback import play
 import csv
 from os import path
 import sys
+
 bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
 path_to_data = path.abspath(path.join(bundle_dir, 'saved_count.csv'))
 
 print(path_to_data)
+
 
 # We will start counting from this number
 def read_saved_number(csvfilename):
@@ -82,7 +84,7 @@ def getDuration(then, now=datetime.now(), interval="default"):
         return "{} years, {} days, {} hours, {} minutes and {} seconds".format(int(y[0]), int(d[0]), int(h[0]),
                                                                                int(m[0]), int(s[0]))
 
-    # this returns a dictionary, we choose the key to return valuejjjjj
+    # this returns a dictionary, we choose the key to return value
     return {
         'years': int(years()[0]),
         'days': int(days()[0]),
@@ -111,7 +113,7 @@ audioElements = {
     '11': 'Cyrus/eleven.wav', '12': 'Cyrus/twelve.wav', '13': 'Cyrus/thirteen.wav', '14': 'Cyrus/fourteen.wav',
     '15': 'Cyrus/fifteen.wav',
     '16': 'Cyrus/sixteen.wav', '17': 'Cyrus/seventeen.wav', '18': 'Cyrus/eighteen.wav', '19': 'Cyrus/nineteen.wav',
-    '20': 'Cyrus/twenty.wav', '30': 'Cyrus/thirty.wav', '40': 'Cyrus/fourty.wav', '50': 'Cyrus/fifty.wav',
+    '20': 'Cyrus/twenty.wav', '30': 'Cyrus/thirty.wav', '40': 'Cyrus/forty.wav', '50': 'Cyrus/fifty.wav',
     '60': 'Cyrus/sixty.wav', '70': 'Cyrus/seventy.wav', '80': 'Cyrus/eighty.wav', '90': 'Cyrus/ninety.wav',
     '100': 'Cyrus/hundred.wav', '1000': 'Cyrus/thousand.wav', '1000000': 'Cyrus/million.wav',
     '1000000000': 'Cyrus/billion.wav', '1000000000000': 'Cyrus/trillion.wav'
@@ -120,6 +122,7 @@ audioElements = {
 
 def split(num):
     # returns a hundreds, tens, teens and units from a three digit number
+    # maybe this should be in the find_units function?
 
     teens = 0
     hundreds = num // 100
@@ -157,6 +160,8 @@ def find_units(num):
 
 
 def add_placeholders(x):
+    # what exactly does this do again? Get rid of the blob variable name
+
     blob = find_units(x)
     trillions = list(blob[0])
     billions = list(blob[1])
@@ -188,7 +193,7 @@ def add_placeholders(x):
         if hundreds[0] != 0:
             hundreds.insert(1, 100)
     whole_number = trillions + billions + millions + thousands + hundreds
-    no_zeros = [i for i in whole_number if i != 0]
+    no_zeros = [i for i in whole_number if i != 0] # and this does what again?
 
     return no_zeros
 
@@ -199,7 +204,6 @@ def read_numbers(num):
     for i in num:
         speak += AudioSegment.from_file(audioElements[str(i)], format='wav')
     play(speak)
-
 
 
 if __name__ == "__main__":
