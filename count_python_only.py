@@ -6,47 +6,43 @@ import csv
 from os import path
 import sys
 
+print(f'Starting up ......')
+
+# not sure why this is here. Experimenting with exporting a package and needed this for path variables
+# This defines the data file for saved numbers
+# should remove this since I don't need to package up the script
+
 bundle_dir = getattr(sys, '_MEIPASS', path.abspath(path.dirname(__file__)))
 path_to_data = path.abspath(path.join(bundle_dir, 'saved_count.csv'))
-
 print(path_to_data)
 
-
-# We will start counting from this number
-def read_saved_number(csvfilename):
+def get_last_saved_number(datafile):
     file_data = []
-    with open(csvfilename, "r") as number_list:
+    with open(datafile, "r") as number_list:
         reader = csv.reader(number_list, delimiter=',', quotechar='"')
         for row in reader:
             if row:  # avoid blank lines
                 columns = [row[0], row[1]]
                 file_data.append(columns)
-    return file_data
+    last_row = file_data[-1]
+    print(f'current number is {last_row[0]} and time was {last_row[1]}')
+    return int(last_row[0])
 
 
-def save_current_number(csv_file_name, number, time):
-    with open(csv_file_name, mode='a') as number_file:
+def save_current_number(datafile, number, time):
+    with open(datafile, mode='a') as number_file:
         number_writer = csv.writer(number_file, delimiter=',', quotechar='"')
         number_writer.writerow([number, time])
     return
 
 
-print(f'Starting up ......')
-
-# read the last saved number
+# read the last saved number.
+# need to think about why this is a global variable
 global the_number
-
-# data = read_saved_number('saved_count.csv')
-data = read_saved_number(path_to_data)
-
-# grab last row of csv file
-last_row = data[-1]
-print(f'current number is {last_row[0]} and time was {last_row[1]}')
-the_number = int(last_row[0])
+the_number = get_last_saved_number('saved_count.csv')
 
 # Set this to the starting date for counting
 start_date = datetime(2020, 6, 4)
-
 
 # Function to calculate the time delta between two dates
 # Sure seems like there could be a easier way to do this
@@ -106,9 +102,6 @@ def getDuration(then, now=datetime.now(), interval="default"):
 # print(getDuration(then, now, 'seconds'))  # seconds
 
 # Define the dictionary for audio files that will speak the numbers
-
- # kkkk
-
 
 audioElements = {
     '1': 'Cyrus/one.wav', '2': 'Cyrus/two.wav', '3': 'Cyrus/three.wav', '4': 'Cyrus/four.wav', '5': 'Cyrus/five.wav',
@@ -216,6 +209,6 @@ if __name__ == "__main__":
         read_numbers(add_placeholders(the_number))
         the_number += 1
 
-        # only save every 10 numbers to cvs
+        # only save current count every 10 numbers to datafile
         if the_number % 10 == 0:
             save_current_number(path_to_data, the_number, datetime.now())
