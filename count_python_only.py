@@ -45,7 +45,8 @@ the_number = get_last_saved_number('saved_count.csv')
 start_date = datetime(2020, 6, 4)
 
 # Function to calculate the time delta between two dates
-# Sure seems like there could be a easier way to do this
+# Sure seems like there could be a easier way to do this, currently not using this.
+# Thought this would be nice if we had a gui to show current number and elapsed time.
 def getDuration(then, now=datetime.now(), interval="default"):
     # Returns a duration as specified by variable interval
     # Functions, except totalDuration, returns [quotient, remainder]
